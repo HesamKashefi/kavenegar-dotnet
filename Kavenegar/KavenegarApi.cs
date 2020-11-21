@@ -1,6 +1,7 @@
 ﻿using Kavenegar.Exceptions;
 using Kavenegar.Models;
 using Kavenegar.Models.Enums;
+using Kavenegar.Models.Internal;
 using Kavenegar.Utils;
 using Microsoft.Extensions.Options;
 using System;
@@ -10,7 +11,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using Kavenegar.Models.Internal;
 
 namespace Kavenegar
 {
@@ -117,9 +117,9 @@ namespace Kavenegar
             var path = GetApiPath("sms", "send", "json");
             var param = new Dictionary<string, object>
         {
-            {"sender", System.Web.HttpUtility.UrlEncode(sender)},
+            {"sender", sender},
             {"receptor", string.Join(",", receptor.ToArray())},
-            {"message", System.Web.HttpUtility.UrlEncode(message)},
+            {"message", message},
             {"type", (int) type},
             {"date", date == DateTime.MinValue ? 0 : DateHelper.DateTimeToUnixTimestamp(date)}
         };
@@ -424,7 +424,7 @@ namespace Kavenegar
         {
             {"postalcode", postalcode},
             {"sender", sender},
-            {"message", System.Web.HttpUtility.UrlEncode(message)},
+            {"message", message},
             {"mcistartIndex", mcistartIndex},
             {"mcicount", mcicount},
             {"mtnstartindex", mtnstartindex},
@@ -527,7 +527,7 @@ namespace Kavenegar
             var param = new Dictionary<string, object>
             {
                 {"receptor", string.Join(",", receptor.ToArray())},
-                {"message", System.Web.HttpUtility.UrlEncode(message)},
+                {"message", message},
             };
             if (date != null)
                 param.Add("date", DateHelper.DateTimeToUnixTimestamp(date.Value));
